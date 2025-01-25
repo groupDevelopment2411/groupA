@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <title>ログイン</title>
+</head>
+<!-- <header>
+    <span>共通ヘッダー(仮)</span>
+    <div class="header_container">
+        <div class="menu_title">ページタイトル</div>
+        <div class="login_info">
+            <p>ユーザー名 さん</p>
+            <p>ログイン日時</p>
+        </div>
+    </div>
+</header> -->
+
+<body>
+    <div class="container">
+        <h1>ログインフォーム</h1>
+        <p class="msg">ユーザー名とパスワードを入力してください</p>
+        <p class="error_msg" th:if="${errorMsg}" th:text="${errorMsg}"></p>
+        <form th:action="@{/login}" method="post">
+            <div class="login_content">
+                ユーザーID：
+                <input type="text" name="id">
+            </div>
+            <div class="login_content">
+                パスワード：
+                <input type="password" name="password">
+            </div>
+            <div class="login_content">
+                <input type="submit" value="送信" class="button">
+                <input type="reset" value="リセット" class="button">
+            </div>
+        </form>
+    </div>
+
+</body>
+
+<footer>
+    <small><p>&copy;コピーライトを入れる</p></small>
+</footer>
+</html>
