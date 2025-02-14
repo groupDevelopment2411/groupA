@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>RegistrationFoam</title>
+
+	<script>
+		function validateInput(){
+			const name = document.getElementById("name").value;
+			const age = document.getElementById("age").value;
+			const password1 = document.getElementById("password1").value;
+			const password2 = document.getElementById("password2").value;
+
+			let errormes = [];
+			
+			if(name === ""){
+				errormes.push("名前の入力必須です。");
+			}
+
+			if(age === ""){
+				errormes.push("年齢の入力必須です。");
+			}else if(isNaN(age)){
+				errormes.push("年齢は数値でなければなりません");
+			}
+			
+			if(password1 === ""){
+				errormes.push("パスワードの入力必須です。");
+			}else if(!/^[A-Za-z0-9]+$/.test(password1)){
+				errormes.push("パスワードは半角英数字のみを使用してください");
+			}else if (!/.{8,}/.test(password1)) {
+				errormes.push("パスワードは8文字以上でなければなりません");
+			}else if (!/[a-z]/.test(password1)) {
+				errormes.push("パスワードには少なくとも1つの小文字が含まれている必要があります");
+			}else if (!/[A-Z]/.test(password1)) {
+				errormes.push("パスワードには少なくとも1つの大文字が含まれている必要があります");
+			}else if (!/[0-9]/.test(password1)) {
+				errormes.push("パスワードには少なくとも1つの数字が含まれている必要があります"); 
+			}
+			
+			if(password2 === ""){
+				errormes.push("先に入力したパスワードと同じものを入力してください");
+			}else if(password1 !== password2){
+				errormes.push("パスワードが一致しません");
+			}
+
+			if(errormes.length > 0){
+				alert(errormes.join("\n"));
+				return false;
+			}
+
+			function submitButton(){
+				const submitButton = document.querySelector('input[type = "submit"]');
+				submitButton.disabled = true;
+			}
+
+		}
+
+	</script>
+
+
+</head>
+<body>
+	<form id = "inputForm" action="/RegistrationConfirm" method="post" onsubmit="return validateInput();">
+
+		<label for="name">名前:</label>
+		<input type="text" id="name" name="name"><br><br>
+
+		<label for="age">年齢:</label>
+		<input type="text" id="age" name="age"><br><br>
+
+		<label for="password1">パスワード:</label>
+		<input type="password" id="password1" name="password1"><br><br>
+
+		<label for="password2">パスワード確認:</label>
+		<input type="password" id="password2" name="password2"><br><br>
+
+		<input type="submit" value="更新">
+
+		<input type="button" onclick="location.href='/backToSearch'" value="戻る">
+	</form>
+
+	表示される？
+
+</body>
+
+
+</html>
