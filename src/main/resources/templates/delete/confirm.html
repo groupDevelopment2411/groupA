@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>社員削除確認</title>
+</head>
+<body>
+    <h1>社員削除確認</h1>
+    <p>以下の社員を削除します。よろしいですか？</p>
+    <p>社員ID: <span th:text="${employee.id}"></span></p>
+    <p>名前: <span th:text="${employee.name}"></span></p>
+    <form th:action="@{/delete/result}" method="post">
+        <input type="hidden" name="id" th:value="${employee.id}">
+        <button type="submit">削除</button>
+    </form>
+    <a th:href="@{/}">キャンセル</a>
+</body>
+</html>

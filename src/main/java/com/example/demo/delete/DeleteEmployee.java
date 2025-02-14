@@ -2,6 +2,7 @@ package com.example.demo.delete;
 
 import java.util.Date;
 
+//DBのレコードをオブジェクトにする
 public class DeleteEmployee {
 	private int id;
 	private String name;
