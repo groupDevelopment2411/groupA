@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <h1>確認画面</h1>
+    <p>名前：</p>
+    <p th:text = ${confirm.name}>  </p>
+    <p>年齢：</p>
+    <p th:text = ${confirm.age}>  </p><br>
+    <p>パスワード：</p>
+    <p th:text = ${confirm.password1}>  </p><br>
+    <p>登録日：</p>
+    <p th:text = ${confirm.startdate}>  </p><br>
+
+
+    
+
+    <form action="/RegistrationComplete" method="post">
+        <input type="hidden" name="name" th:value="${confirm.name}">
+        <input type="hidden" name="age" th:value="${confirm.age}">
+        <input type="hidden" name="password1" th:value="${confirm.password1}">
+        <input type="hidden" name="startdate" th:value="${confirm.startdate}">
+
+        <input type="submit" value="更新してよろしいでしょうか？">
+
+        <input type="button" onclick="location.href='/backToForm'" value="戻る">
+        
+    </form>
+
+
+
+</body>
+</html>
