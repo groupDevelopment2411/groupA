@@ -7,10 +7,18 @@
 <body>
     <h1>社員削除確認</h1>
     <p>以下の社員を削除します。よろしいですか？</p>
-    <p>社員ID: <span th:text="${employee.id}"></span></p>
-    <p>名前: <span th:text="${employee.name}"></span></p>
     <form th:action="@{/delete/result}" method="post">
-        <input type="hidden" name="id" th:value="${employee.id}">
+        <table>
+            <tr>
+                <th>社員ID</th>
+                <th>名前</th>
+            </tr>
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.name}"></td>
+                <input type="hidden" name="id" th:value="${employee.id}" />
+            </tr>
+        </table>
         <button type="submit">削除</button>
     </form>
     <a th:href="@{/}">キャンセル</a>

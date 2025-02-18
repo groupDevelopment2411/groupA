@@ -1,5 +1,7 @@
 package com.example.demo.delete;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,20 +34,53 @@ public class DeleteController {
         }
     }
 
-    // 削除確認ページ（検索ページから）
+
+    // 社員情報削除確認ページ（自分の検索ページから）
     @GetMapping("/delete/confirm")
     public String showDeleteConfirm(@RequestParam("id") int id, Model model) {
+    	
         DeleteEmployee deleteEmployee = employeeService.getEmployeeById(id);
-        model.addAttribute("employee", deleteEmployee);
-        return "delete/confirm";
+
+        if (deleteEmployee != null) {
+            model.addAttribute("employee", deleteEmployee);
+            return "delete/confirm";
+        } else {
+            model.addAttribute("errorMessage", "該当する社員が見つかりませんでした。");
+            return "delete/search";
+        }
+        
     }
 
-    // 削除処理
+    // 社員情報削除確認ページ（他の検索ページから:複数）
+    @GetMapping("/delete/confirmMultiple")
+    public String showDeleteConfirmMultiple(@RequestParam("id") List<Integer> ids, Model model) {
+
+    	List<DeleteEmployee> employees = employeeService.getEmployeeByIds(ids);
+        
+        if (!employees.isEmpty()) {
+            model.addAttribute("employees", employees);
+            return "delete/confirmMultiple";
+        } else {
+            model.addAttribute("errorMessage", "該当する社員が見つかりませんでした。");
+            return "delete/search";
+        }
+
+    }
+
+
+    // 社員情報を削除する
     @PostMapping("/delete/result")
     public String deleteEmployee(@RequestParam("id") int id, Model model) {
-    	//RequestParamからidを取得し、Modelオブジェクトでビューにデータを渡す
         employeeService.deleteEmployeeById(id);
         model.addAttribute("message", "社員の削除が完了しました。");
+        return "delete/result";
+    }
+
+    // 社員情報を削除する(複数)
+    @PostMapping("/delete/resultMultiple")
+    public String deleteEmployees(@RequestParam("id") List<Integer> ids, Model model) {
+        employeeService.deleteEmployeeByIds(ids);
+        model.addAttribute("message", "選択した社員の削除が完了しました。");
         return "delete/result";
     }
 }
