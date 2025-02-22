@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>社員削除検索</title>
 </head>
+<header>
+    <div th:insert="common/common :: header"></div>
+</header>
 <body>
     <h1>社員削除検索</h1>
     <form th:action="@{/delete/confirm}" method="get">
@@ -13,4 +16,7 @@
     </form>
     <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
 </body>
+<footer>
+    <div th:replace="common/common :: footer"></div>
+</footer>
 </html>

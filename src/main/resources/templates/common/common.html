@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>fragment</title>
+</head>
+<body>
+    <!-- フラグメント定義 -->
+    <div th:fragment="header">
+        <div>共通ヘッダーテスト</div>
+        <div>名前 ×× ○○さん</div>
+        <div>ログイン年/月/日 時間をここに表示</div>        
+    </div>
+    <div th:fragment="footer">
+        <small>
+            &copy; 2024- groupA All rights reserved
+        </small>
+    </div>
+</body>
+</html>

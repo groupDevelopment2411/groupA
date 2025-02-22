@@ -18,12 +18,12 @@ public interface DeleteMapper {
 	@Select({
 	    "<script>",
 	    "SELECT * FROM employee WHERE id IN ",
-	    "<foreach item='id' collection='idList' open='(' separator=',' close=')'>",
+	    "<foreach item='id' collection='list' open='(' separator=',' close=')'>",
 	    "#{id}",
 	    "</foreach>",
 	    "</script>"
 	})
-	List<DeleteEmployee> findByIds(@Param("idList") List<Integer> ids);
+	List<DeleteEmployee> findByIds(@Param("list") List<Integer> ids);
 
     //社員情報を削除
     @Delete("DELETE FROM employee WHERE id = #{id}")
@@ -33,10 +33,10 @@ public interface DeleteMapper {
 	@Delete({
 	    "<script>",
 	    "DELETE FROM employee WHERE id IN ",
-	    "<foreach item='id' collection='idList' open='(' separator=',' close=')'>",
+	    "<foreach item='id' collection='list' open='(' separator=',' close=')'>",
 	    "#{id}",
 	    "</foreach>",
 	    "</script>"
 	})
-	void deleteByIds(@Param("idList") List<Integer> ids);
+	void deleteByIds(@Param("list") List<Integer> ids);
 }
