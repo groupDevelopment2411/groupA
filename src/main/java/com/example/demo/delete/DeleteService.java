@@ -2,22 +2,12 @@ package com.example.demo.delete;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-//controllerからmapperを通してDB操作をする
-@Service
-public class DeleteService {
-    @Autowired
-    private DeleteMapper deleteMapper;
+public interface DeleteService {
     
-    //社員情報を取得する
-    public List<DeleteEmployee> getEmployeesByIds(List<Integer> ids) {
-        return deleteMapper.findByIds(ids);
-    }
+    List<DeleteEmployee> getEmployeesByIds(List<Integer> ids);
     
-    // 社員情報を削除する
-    public void deleteEmployeesByIds(List<Integer> ids) {
-        deleteMapper.deleteByIds(ids);
-    }
+    void deleteEmployeesByIds(List<Integer> ids);
+    
+    boolean employeeExists(Integer id); // IDが存在するか確認するメソッド
+    
 }

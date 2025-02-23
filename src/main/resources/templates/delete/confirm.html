@@ -13,14 +13,12 @@
     <form th:action="@{/delete/result}" method="post">
         <table>
             <tr>
-                <th>社員ID</th>
-                <th>名前</th>
+                <th>社員ID:</th>
             </tr>
             <tr th:each="employee : ${employees}">
                 <td th:text="${employee.id}">
-                    <input type="hidden" name="ids" th:value="${employee.id}" />
+                    <input type="hidden" name="ids[]" th:value="${employee.id}" />
                 </td>
-                <td th:text="${employee.name}"></td>
             </tr>
         </table>
         <button type="submit">削除</button>

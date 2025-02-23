@@ -9,12 +9,13 @@
 </header>
 <body>
     <h1>社員削除検索</h1>
-    <form th:action="@{/delete/confirm}" method="get">
+    <form th:action="@{/delete/confirm}" method="get" th:object="${deleteForm}">
         <label for="id">社員ID：</label>
-        <input type="text" name="id" id="id">
+        <input type="text" name="id" id="id" th:field="*{id}">
         <button type="submit">削除</button>
     </form>
     <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+    <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
 </body>
 <footer>
     <div th:replace="common/common :: footer"></div>
