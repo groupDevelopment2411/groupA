@@ -12,22 +12,12 @@ public class DeleteService {
     private DeleteMapper deleteMapper;
     
     //社員情報を取得する
-    public DeleteEmployee getEmployeeById(int id) {
-        return deleteMapper.findById(id);
-    }
-
-    //社員情報を取得する(複数)
-    public List<DeleteEmployee> getEmployeeByIds(List<Integer> ids) {
+    public List<DeleteEmployee> getEmployeesByIds(List<Integer> ids) {
         return deleteMapper.findByIds(ids);
     }
     
     // 社員情報を削除する
-    public void deleteEmployeeById(int id) {
-        deleteMapper.deleteById(id);
-    }
-        
-    //社員情報を削除する(複数)
-    public void deleteEmployeeByIds(List<Integer> ids) {
+    public void deleteEmployeesByIds(List<Integer> ids) {
         deleteMapper.deleteByIds(ids);
     }
 }

@@ -11,10 +11,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface DeleteMapper {
 	//社員情報を取得	
-    @Select("SELECT * FROM employee WHERE id = #{id}")
-    DeleteEmployee findById(int id);
-
-	//社員情報を取得(複数)
 	@Select({
 	    "<script>",
 	    "SELECT * FROM employee WHERE id IN ",
@@ -26,10 +22,6 @@ public interface DeleteMapper {
 	List<DeleteEmployee> findByIds(@Param("list") List<Integer> ids);
 
     //社員情報を削除
-    @Delete("DELETE FROM employee WHERE id = #{id}")
-    void deleteById(int id);
-	
-	//社員情報を削除(複数)
 	@Delete({
 	    "<script>",
 	    "DELETE FROM employee WHERE id IN ",

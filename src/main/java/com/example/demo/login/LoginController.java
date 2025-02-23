@@ -22,7 +22,7 @@ public class LoginController {
 		
 		if(loginService.authenticate(id, password)) {
 
-			return "redirect:/success";/*仮ページ:出来上がったらメインメニューへのリンクに差し替え*/
+			return "redirect:/dummy/success";/*仮ページ:出来上がったらメインメニューへのリンクに差し替え*/
 
 		}else {
 
@@ -32,8 +32,8 @@ public class LoginController {
 		}
 	}
 			
-	@GetMapping("/success")
+	@GetMapping("/dummy/success")
 	public String showSuccessPage() {
-		return "success";
+		return "dummy/success";
 	}
 }
