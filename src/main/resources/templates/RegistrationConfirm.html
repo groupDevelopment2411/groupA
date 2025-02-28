@@ -5,6 +5,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+    <!-- ヘッダー -->
+    <div th:replace="~{Registration_Update_header_footer/header :: header_fragment1}"></div>
+    <div th:replace="~{Registration_Update_header_footer/header :: header_fragment2}"></div>
+
     <h1>確認画面</h1>
     <p>名前：</p>
     <p th:text = ${confirm.name}>  </p>
@@ -30,7 +35,8 @@
         
     </form>
 
-
+    <!-- フッター -->
+    <div th:replace="~{Registration_Update_header_footer/footer :: footer_fragment}"></div>
 
 </body>
 </html>

@@ -60,6 +60,13 @@
 
 </head>
 <body>
+
+	<h1>社員情報登録画面（入力）</h1>
+
+    <!-- ヘッダー -->
+    <div th:replace="~{Registration_Update_header_footer/header :: header_fragment1}"></div>
+    <div th:replace="~{Registration_Update_header_footer/header :: header_fragment2}"></div>
+
 	<form id = "inputForm" action="/RegistrationConfirm" method="post" onsubmit="return validateInput();">
 
 		<label for="name">名前:</label>
@@ -79,7 +86,9 @@
 		<input type="button" onclick="location.href='/backToSearch'" value="戻る">
 	</form>
 
-	表示される？
+
+    <!-- フッター -->
+    <div th:replace="~{Registration_Update_header_footer/footer :: footer_fragment}"></div>
 
 </body>
 
