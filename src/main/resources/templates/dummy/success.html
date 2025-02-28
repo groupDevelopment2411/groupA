@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>削除完了</title>
+    <title>ダミーのメインメニュー</title>
 </head>
 <body>
     <header>
         <div th:insert="common/common :: header"></div>
     </header>
-    <h1>削除完了</h1>
-    <p th:text="${message}">削除が完了しました。</p>
-    <a th:href="@{/dummy/success}">メインメニューに戻る</a>
+    <h1>ダミーのメインメニュー</h1>
+    <a th:href="@{/dummy/search}">ダミー検索ページへ</a>
+    <a th:href="@{/delete/search}">削除ページへ</a>
     <footer>
         <div th:replace="common/common :: footer"></div>
     </footer>

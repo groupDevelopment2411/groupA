@@ -31,11 +31,14 @@ public class DeleteController {
     
     // 社員情報削除確認ページ
     @GetMapping("/delete/confirm")
-    public String showDeleteConfirm(@RequestParam("ids") List<Integer> ids, Model model) {
-    	System.out.println("受け取ったID: " + ids); // チェック用後で消す
-    	
+    public String showDeleteConfirm(@RequestParam(value = "ids", required = false)List<Integer> ids,
+    								Model model) {
+
+    	System.out.println("受け取ったID: " + ids); // チェック用
+   
+//    	社員データがないIDの検索がされた場合のエラー
         if (ids == null || ids.isEmpty()) {
-            model.addAttribute("errorMessage", "削除する社員が選択されていません。");
+            model.addAttribute("errorMsg", "正しいIDが入力されていません。");
             return "dummy/search";
         }
         
@@ -44,8 +47,10 @@ public class DeleteController {
         if (!employees.isEmpty()) {
             model.addAttribute("employees", employees);
             return "delete/confirm";
+            
         } else {
-            model.addAttribute("errorMessage", "該当する社員が見つかりませんでした。");
+        	
+            model.addAttribute("errorMsg", "該当する社員が見つかりませんでした。");
             return "dummy/search";
         }
         

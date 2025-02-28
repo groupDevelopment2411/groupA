@@ -7,9 +7,10 @@
 <body>
     <!-- フラグメント定義 -->
     <div th:fragment="header">
-        <div>共通ヘッダーテスト</div>
-        <div>名前 ×× ○○さん</div>
-        <div>ログイン年/月/日 時間をここに表示</div>        
+        <div th:if="${session.loginUser}">
+            <span th:text="${session.loginUser.name} + 'さん'"></span>
+            <span th:text="'ログイン日時：' + ${#dates.format(session.loginTime,'yyyy/MM/dd HH:mm:ss')}"></span>
+        </div>
     </div>
     <div th:fragment="footer">
         <small>

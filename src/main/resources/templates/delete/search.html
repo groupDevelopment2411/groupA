@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <title>社員削除検索</title>
 </head>
-<header>
-    <div th:insert="common/common :: header"></div>
-</header>
 <body>
+    <header>
+        <div th:insert="common/common :: header"></div>
+    </header>
     <h1>社員削除検索</h1>
     <form th:action="@{/delete/confirm}" method="get">
         <label for="id">社員ID：</label>
-        <input type="text" name="id" id="id">
+        <input type="text" name="ids" id="id">
         <button type="submit">削除</button>
     </form>
-    <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+    <p th:if="${errorMsg}" th:text="${errorMsg}"></p>
+    <footer>
+        <div th:replace="common/common :: footer"></div>
+    </footer>
 </body>
-<footer>
-    <div th:replace="common/common :: footer"></div>
-</footer>
 </html>
