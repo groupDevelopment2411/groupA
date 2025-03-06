@@ -2,57 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>検索ページからの削除テスト</title>
+    <title>検索ページからの削除テストページ</title>
 </head>
-<header>
-    <div th:insert="common/common :: header"></div>
-</header>
 <body>
+    <header>
+        <div th:insert="common/common :: header"></div>
+    </header>
     <h1>検索からの削除テスト</h1>
     <form th:action="@{/delete/confirm}" method="get">
         <table border="1">
-            <thead>
-                <tr>
-                    <th>選択</th>
-                    <th>ID</th>
-                    <th>氏名</th>
-                    <th>年齢</th>
-                    <th>入社日</th>
-                    <th>退職日</th>
-                </tr>
-            </thead>
-            <tbody>
+            <tr>
+                <th>選択</th>
+                <th>ID</th>
+                <th>氏名</th>
+                <th>年齢</th>
+                <th>入社日</th>
+                <th>退職日</th>
+            </tr>      
                 <!-- ダミーデータを使用して3つのIDを表示 -->
-                <tr>
-                    <td><input type="checkbox" name="ids" value="1"></td>
-                    <td>10001</td>
-                    <td>赤井一郎</td>
-                    <td>20</td>
-                    <td>2020-01-01</td>
-                    <td>2020-12-31</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="ids" value="2"></td>
-                    <td>10002</td>
-                    <td>青山次郎</td>
-                    <td>30</td>
-                    <td>2020-01-01</td>
-                    <td>2021-12-31</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="ids" value="3"></td>
-                    <td>10003</td>
-                    <td>黄田三郎</td>
-                    <td>40</td>
-                    <td>2020-01-01</td>
-                    <td>NULL</td>
-                </tr>
-            </tbody>
+            <tr>
+                <td><input type="checkbox" name="ids" value="10001"></td>
+                <td>10001</td>
+                <td>京極夏彦</td>
+                <td>20</td>
+                <td>2020-01-01</td>
+                <td>   -</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="ids" value="10002"></td>
+                <td>10002</td>
+                <td>綾辻行人</td>
+                <td>20</td>
+                <td>2020-01-01</td>
+                <td>2025-12-31</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="ids" value="10003"></td>
+                <td>10003</td>
+                <td>辻村深月</td>
+                <td>25</td>
+                <td>2020-01-01</td>
+                <td>   -</td>
+            </tr>
         </table>
-        <button type="submit">削除</button>
+        <p th:if="${errorMsg}" th:text="${errorMsg}"></p>
+        <button type="submit">削除</button> <button><a th:href="@{/dummy/success}">メインメニューに戻る</a></button>
     </form>
+    <footer>
+        <div th:replace="common/common :: footer"></div>
+    </footer>
 </body>
-<footer>
-    <div th:replace="common/common :: footer"></div>
-</footer>
 </html>

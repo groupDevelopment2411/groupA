@@ -14,8 +14,7 @@ public class LoginService {
 		return loginMapper.selectAll();
 	}
 	
-	public boolean authenticate(int id, String password) {
-		LoginEmployee employee = loginMapper.findByIdAndPassword(id, password);
-		return employee != null;
+	public LoginEmployee findEmployeeByIdAndPassword(int id, String password) {
+		return loginMapper.findByIdAndPassword(id, password);
 	}
 }

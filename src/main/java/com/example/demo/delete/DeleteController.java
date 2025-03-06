@@ -1,6 +1,5 @@
 package com.example.demo.delete;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,48 +31,29 @@ public class DeleteController {
     
     // 社員情報削除確認ページ
     @GetMapping("/delete/confirm")
-    public String showDeleteConfirm(@RequestParam(value = "ids", required = false) List<Integer> ids,
-    		                        @RequestParam(value = "id", required = false) Integer id,
+    public String showDeleteConfirm(@RequestParam(value = "ids", required = false)List<Integer> ids,
     								Model model) {
-    	
-    	List<Integer> idList = new ArrayList<>();
-    	
-		if (id != null) { /*単一IDの場合*/
-			
-			/*IDの存在CHK*/
-        	if(!deleteService.employeeExists(id)) {
-        		model.addAttribute("errorMessage", "指定されたIDは存在しません");
-        		return "delete/search";
-        	}
-        	
-        	idList.add(id);
-        	
-		} else if (ids != null && !ids.isEmpty()) { /*複数IDの場合*/
-			
-			idList.addAll(ids);
 
-        }else {  /*IDが指定されてない*/
-
-        	model.addAttribute("errorMessage", "削除するIDが選択されていません");
-        	
+    	System.out.println("受け取ったID: " + ids); // チェック用
+   
+//    	社員データがないIDの検索がされた場合のエラー
+        if (ids == null || ids.isEmpty()) {
+            model.addAttribute("errorMsg", "正しいIDが入力されていません。");
+            return "dummy/search";
         }
         
-		System.out.println("受け取ったID:" + idList); /*チェック用なので後で消す*/
+        List<DeleteEmployee> employees = deleteService.getEmployeesByIds(ids);
         
-		List<DeleteEmployee> employees = deleteService.getEmployeesByIds(idList);
-		
-		if(!employees.isEmpty()) {
-			
-			model.addAttribute("employees",employees);
-			return "delete/confirm";
-			
-		}else {
-			
-			model.addAttribute("errorMessage","該当する社員が見つかりませんでした");
-			
-			return "delete/search";
-		}
-		
+        if (!employees.isEmpty()) {
+            model.addAttribute("employees", employees);
+            return "delete/confirm";
+            
+        } else {
+        	
+            model.addAttribute("errorMsg", "該当する社員が見つかりませんでした。");
+            return "dummy/search";
+        }
+        
     }
 
     
