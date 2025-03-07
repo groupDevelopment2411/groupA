@@ -10,6 +10,7 @@
     </header>
     <h1>検索からの削除テスト</h1>
     <form th:action="@{/delete/confirm}" method="get">
+        <input type="hidden" name="source" value="dummy">
         <table border="1">
             <tr>
                 <th>選択</th>

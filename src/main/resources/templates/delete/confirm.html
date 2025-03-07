@@ -16,15 +16,9 @@
                 <th>社員ID:</th>
             </tr>
             <tr th:each="employee : ${employees}">
-<<<<<<< HEAD
-                <td th:text="${employee.id}">
-                    <input type="hidden" name="ids[]" th:value="${employee.id}" />
-                </td>
-=======
                 <td th:text="${employee.id}"></td>
                 <td th:text="${employee.name}"></td>
                 <input type="hidden" name="ids" th:value="${employee.id}" />
->>>>>>> future/003
             </tr>
         </table>
         <button type="submit">削除</button>
