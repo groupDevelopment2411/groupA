@@ -20,4 +20,12 @@ public class DeleteService {
     public void deleteEmployeesByIds(List<Integer> ids) {
         deleteMapper.deleteByIds(ids);
     }
+    
+    public boolean employeeExists(Integer id) {
+    	return deleteMapper.findById(id) != null;
+    }
+    
+    public DeleteEmployee findByUsername(String username) {
+    	return deleteMapper.findByUsername(username);
+    }
 }

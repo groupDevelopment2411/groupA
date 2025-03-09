@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<head th:replace="common/common :: head">
     <title>社員削除検索</title>
 </head>
 <body>
-    <header>
-        <div th:insert="common/common :: header"></div>
-    </header>
+    <header th:insert="common/common :: header"></header>
+
     <h1>社員削除検索</h1>
+    
     <form th:action="@{/delete/confirm}" method="get" th:object="${deleteForm}">
         <label for="id">社員ID：</label>
-        <input type="text" name="ids" id="id">
+        <input type="text" name="id" id="id">
+        <input type="hidden" name="source" value="delete">
         <button type="submit">削除</button>
     </form>
-    <p th:if="${errorMsg}" th:text="${errorMsg}"></p>
-    <footer>
-        <div th:replace="common/common :: footer"></div>
-    </footer>
+    
+    <a th:href="@{/dummy/success}"><button>メインメニューに戻る</button></a>
+    
+    <script th:inline="javascript">
+        window.onload = function() {
+            var errorMsgList = /*[[${errorMsgList}]]*/ [];
+            
+            if (Array.isArray(errorMsgList) && errorMsgList.length > 0) {
+                Swal.fire({
+                    title: "⚠️Error⚠️",
+                    html: errorMsgList.map(function(msg) { return "<p>" + msg + "</p>";}).join(""),
+                    confirmButtonText: "OK"
+                });
+            }
+        };
+    </script>
 </body>
+<footer th:replace="common/common :: footer"></footer>
 </html>

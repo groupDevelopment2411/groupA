@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<head th:replace="common/common :: head">
     <title>削除完了</title>
 </head>
 <body>
-    <header>
-        <div th:insert="common/common :: header"></div>
-    </header>
+    <header th:insert="common/common :: header"></header>
+
     <h1>削除完了</h1>
+
     <p th:text="${message}">削除が完了しました。</p>
     <a th:href="@{/dummy/success}">メインメニューに戻る</a>
-    <footer>
-        <div th:replace="common/common :: footer"></div>
-    </footer>
 </body>
+<footer th:replace="common/common :: footer"></footer>
 </html>

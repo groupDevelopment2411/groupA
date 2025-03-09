@@ -21,10 +21,18 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	public String login(Model m,
-						@RequestParam int id,
+						@RequestParam String id,
 						@RequestParam String password,
 						HttpSession session) {
-		LoginEmployee employee = loginService.findEmployeeByIdAndPassword(id, password);
+		
+	    if (!id.matches("\\d+")) {  
+	        m.addAttribute("errorMsg", "IDまたはパスワードが正しくありません");
+	        return "login"; // **ログイン画面に戻る**
+	    }
+	    
+	    int numId = Integer.parseInt(id); 
+		
+		LoginEmployee employee = loginService.findEmployeeByIdAndPassword(numId, password);
 		
 		if(employee != null) {
 			session.setAttribute("loginUser", employee); /*ログインユーザー情報を保存*/

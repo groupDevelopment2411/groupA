@@ -21,6 +21,14 @@ public interface DeleteMapper {
 	})
 	List<DeleteEmployee> findByIds(@Param("list") List<Integer> ids);
 
+//	idで社員情報を取得するメソッド
+	@Select("SELECT * FROM employee WHERE id = #{id}")
+	DeleteEmployee findById(Integer id);
+	
+	@Select("SELECT * FROM employee WHERE name = #{username}")
+	DeleteEmployee findByUsername(String username);
+
+
     //社員情報を削除
 	@Delete({
 	    "<script>",
