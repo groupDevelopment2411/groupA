@@ -6,10 +6,17 @@
 <body>
     <header th:insert="common/common :: header"></header>
 
-    <h1>ダミーのメインメニュー</h1>
-    
-    <a th:href="@{/dummy/search}">ダミー検索ページへ</a>
-    <a th:href="@{/delete/search}">削除ページへ</a>
+    <main>
+
+        <h1>ダミーのメインメニュー</h1>
+        
+        <wrap class="buttonWrap">
+            <button class="button"><a th:href="@{/dummy/search}">ダミー検索ページへ</a></button>
+            <button class="button"><a th:href="@{/delete/search}" class="button">削除ページへ</a></button>
+        </wrap>
+   
+    </main>
+
+    <footer th:replace="common/common :: footer"></footer>
 </body>
-<footer th:replace="common/common :: footer"></footer>
 </html>

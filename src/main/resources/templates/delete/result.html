@@ -6,10 +6,17 @@
 <body>
     <header th:insert="common/common :: header"></header>
 
-    <h1>削除完了</h1>
+    <main>
 
-    <p th:text="${message}">削除が完了しました。</p>
-    <a th:href="@{/dummy/success}">メインメニューに戻る</a>
+        <h1>削除完了</h1>
+        
+        <p th:text="${message}" class="resultText">削除が完了しました。</p>
+        <wrap class="buttonWrap">
+            <button class="button"><a th:href="@{/dummy/success}">メインメニューに戻る</a></button>
+        </wrap>
+    
+    </main>
+
+    <footer th:replace="common/common :: footer"></footer>
 </body>
-<footer th:replace="common/common :: footer"></footer>
 </html>

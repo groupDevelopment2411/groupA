@@ -4,27 +4,29 @@
     <title>ログイン</title>
 </head>
 <body>
-    <div class="container">
+    <main>
+        <div class="container">
+            <h1>ログインフォーム</h1>
+            <p class="msg">ユーザー名とパスワードを入力してください</p>
+            <form th:action="@{/login}" method="post" class="loginForm">
+                <div class="content">
+                    ユーザーID：
+                    <input type="text" name="id">
+                </div>
+                <div class="content">
+                    パスワード：
+                    <input type="password" name="password">
+                </div>
+                <div class="loginButton">
+                    <input type="submit" value="送信" class="button">
+                    <input type="reset" value="リセット" class="button">
+                </div>
+            </form>
+        </div>
 
-        <h1>ログインフォーム</h1>
+    </main>
 
-        <p class="msg">ユーザー名とパスワードを入力してください</p>
-
-        <form th:action="@{/login}" method="post">
-            <div class="login_content">
-                ユーザーID：
-                <input type="text" name="id">
-            </div>
-            <div class="login_content">
-                パスワード：
-                <input type="password" name="password">
-            </div>
-            <div class="login_content">
-                <input type="submit" value="送信" class="button">
-                <input type="reset" value="リセット" class="button">
-            </div>
-        </form>
-    </div>
+    <footer th:replace="common/common :: footer"></footer>
 
     <script th:inline="javascript">
         window.onload = function() {
@@ -39,7 +41,5 @@
             }
         };
     </script>
-
 </body>
-<footer th:replace="common/common :: footer"></footer>
 </html>

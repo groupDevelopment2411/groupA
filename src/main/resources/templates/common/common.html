@@ -11,14 +11,14 @@
 <body>
     <!-- ヘッダー -->
     <div th:fragment="header">
-        <div th:if="${session.loginUser}">
-            <span th:text="${session.loginUser.name} + 'さん'"></span>
-            <span th:text="'ログイン日時：' + ${#dates.format(session.loginTime,'yyyy/MM/dd HH:mm:ss')}"></span>
+        <div th:if="${session.loginUser}" class="loginLog">
+            <div th:text="${session.loginUser.name} + 'さん'"></div>
+            <div th:text="'ログイン日時：' + ${#dates.format(session.loginTime,'yyyy/MM/dd HH:mm:ss')}"></div>
         </div>
     </div>
 
     <!-- フッター -->
-    <div th:fragment="footer">
+    <div th:fragment="footer" class="footer">
         <small>
             &copy; 2024- groupA All rights reserved
         </small>

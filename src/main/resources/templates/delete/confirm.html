@@ -6,23 +6,32 @@
 <body>
     <header th:insert="common/common :: header"></header>
 
-    <h1>社員削除確認</h1>
-    <p>以下の社員を削除します。よろしいですか？</p>
+    <main>
+
+        <h1>社員削除確認</h1>
+        
+        <p>以下の社員を削除します。よろしいですか？</p>
+        
+        <form th:action="@{/delete/result}" method="post">
+            <table class="comfirmID">
+                <div>
+                    <th>社員ID:</th>
+                </div>
+                <td th:each="employee : ${employees}">
+                    <span th:text="${employee.id}"></span>
+                    <span th:text="${employee.name}"></span>
+                    <input type="hidden" name="ids" th:value="${employee.id}" />
+                </td>
+            </table>
+            <wrap class="buttonWrap">
+                <button type="submit" class="button">削除</button>
+                <button class="button"><a th:href="@{/dummy/success}">キャンセル</a></button>
+            </wrap>
+        </form>
+
+
+    </main>
     
-    <form th:action="@{/delete/result}" method="post">
-        <table>
-            <tr>
-                <th>社員ID:</th>
-            </tr>
-            <tr th:each="employee : ${employees}">
-                <td th:text="${employee.id}"></td>
-                <td th:text="${employee.name}"></td>
-                <input type="hidden" name="ids" th:value="${employee.id}" />
-            </tr>
-        </table>
-        <button type="submit">削除</button>
-    </form>
-    <a th:href="@{/dummy/success}">キャンセル</a>
     <footer th:replace="common/common :: footer"></footer>
 </body>
 </html>
