@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common :: head">
+    <title>検索ページからの削除テストページ</title>
+</head>
+<body>
+    <header th:insert="common/common :: header"></header>
+
+    <main>
+        <h1>検索からの削除テスト</h1>
+        
+        <form th:action="@{/delete/confirm}" method="get"  class="confirmIds">
+            <input type="hidden" name="source" value="dummy">
+            <table border="1">
+                <tr>
+                    <th>選択</th>
+                    <th>ID</th>
+                    <th>氏名</th>
+                    <th>年齢</th>
+                    <th>入社日</th>
+                    <th>退職日</th>
+                </tr>
+                    <!-- ダミーデータを使用して3つのIDを表示 -->
+                <tr>
+                    <td><input type="checkbox" name="ids" value="10001"></td>
+                    <td>10001</td>
+                    <td>京極夏彦</td>
+                    <td>20</td>
+                    <td>2020-01-01</td>
+                    <td>   -</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="ids" value="10002"></td>
+                    <td>10002</td>
+                    <td>綾辻行人</td>
+                    <td>20</td>
+                    <td>2020-01-01</td>
+                    <td>2025-12-31</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="ids" value="10003"></td>
+                    <td>10003</td>
+                    <td>辻村深月</td>
+                    <td>25</td>
+                    <td>2020-01-01</td>
+                    <td>   -</td>
+                </tr>
+            </table>
+            <wrap class="buttonWrap">
+                <button type="submit" class="button">削除</button>
+                <button type="button" onclick="location.href='/dummy/success'" class="button">メインメニューに戻る</button>
+            </wrap>
+        </form>
+
+    </main>
+
+    <script th:inline="javascript">
+        window.onload = function() {
+            var errorMsgList = /*[[${errorMsgList}]]*/ [];
+
+            if (Array.isArray(errorMsgList) && errorMsgList.length > 0) {
+                Swal.fire({
+                    title: "⚠️Error⚠️",
+                    html: errorMsgList.map(function(msg) { return "<p>" + msg + "</p>";}).join(""),
+                    confirmButtonText: "OK"
+                });
+            }
+        };
+    </script>
+
+    <footer th:replace="common/common :: footer"></footer>
+</body>
+</html>

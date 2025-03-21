@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class LoginController {
 	@Autowired
@@ -18,11 +20,24 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public String login(Model m,@RequestParam int id,@RequestParam String password) {
+	public String login(Model m,
+						@RequestParam String id,
+						@RequestParam String password,
+						HttpSession session) {
 		
-		if(loginService.authenticate(id, password)) {
-
-			return "redirect:/success";/*仮ページ:出来上がったらメインメニューへのリンクに差し替え*/
+	    if (!id.matches("\\d+")) {  
+	        m.addAttribute("errorMsg", "IDまたはパスワードが正しくありません");
+	        return "login"; // **ログイン画面に戻る**
+	    }
+	    
+	    int numId = Integer.parseInt(id); 
+		
+		LoginEmployee employee = loginService.findEmployeeByIdAndPassword(numId, password);
+		
+		if(employee != null) {
+			session.setAttribute("loginUser", employee); /*ログインユーザー情報を保存*/
+			session.setAttribute("loginTime", new java.util.Date()); /*ログイン時間を保存*/
+			return "redirect:/dummy/success";/*仮ページ:出来上がったらメインメニューへのリンクに差し替え*/
 
 		}else {
 
@@ -32,8 +47,8 @@ public class LoginController {
 		}
 	}
 			
-	@GetMapping("/success")
+	@GetMapping("/dummy/success")
 	public String showSuccessPage() {
-		return "success";
+		return "dummy/success";
 	}
 }

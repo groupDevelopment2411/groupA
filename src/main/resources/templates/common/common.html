@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 共通CSS/Javascript -->
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <div th:fragment="header">
+        <div th:if="${session.loginUser}" class="loginLog">
+            <div th:text="${session.loginUser.name} + 'さん'"></div>
+            <div th:text="'ログイン日時：' + ${#dates.format(session.loginTime,'yyyy/MM/dd HH:mm:ss')}"></div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <div th:fragment="footer" class="footer">
+        <small>
+            &copy; 2024- groupA All rights reserved
+        </small>
+    </div>
+</body>
+</html>

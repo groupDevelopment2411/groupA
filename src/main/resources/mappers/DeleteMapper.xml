@@ -5,12 +5,18 @@
 
 <mapper namespace="com.example.demo.delete.DeleteMapper">
 
-  <select id="getEmployeeById" parameterType="int" resultType="com.example.demo.delete.DeleteEmployee">
-    SELECT * FROM employee WHERE id = #{id}
-  </select>
-
-  <delete id="deleteEmployeeById" parameterType="int">
-    DELETE FROM employee WHERE id = #{id}
-  </delete>
-
+    <select id="findByIds" parameterType="list" resultType="com.example.demo.delete.DeleteEmployee">
+        SELECT * FROM employee WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    
+    <delete id="deleteByIds" parameterType="list">
+        DELETE FROM employee WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
 </mapper>
