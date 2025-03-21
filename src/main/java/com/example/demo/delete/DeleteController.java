@@ -23,10 +23,12 @@ public class DeleteController {
     
     // 削除検索画面の表示（メインメニューから）
     @GetMapping("/delete/search")
-    public String showDeleteSearchForm() {
+    public String showDeleteSearchForm(@RequestParam(value = "id", required = false) String id, Model model) {
+       if(id != null && !id.isEmpty()) {
+    		model.addAttribute("searchId", id); // IDを保持して削除検索画面に戻る
+       }
         return "delete/search";
-    }
-    
+    }    
     
     // ダミーの検索結果画面の表示
     @GetMapping("/dummy/search")
@@ -113,6 +115,9 @@ public class DeleteController {
         }
         
         model.addAttribute("employees", employees);
+		model.addAttribute("source", source); /*source判定*/
+		model.addAttribute("searchId", id); /*IDをキープして戻る*/
+		
         return "delete/confirm";
         
     }

@@ -10,16 +10,16 @@
         
         <h1>社員削除検索</h1>
         
-        <form th:action="@{/delete/confirm}" method="get" th:object="${deleteForm}">
-            <wrap class="inputID">
+        <form th:action="@{/delete/confirm}" method="get">
+            <div class="inputID">
                 <label for="id">社員ID：</label>
-                <input type="text" name="id" id="id">
+                <input type="text" name="id" id="id" th:value="${searchId}">
                 <input type="hidden" name="source" value="delete">
-            </wrap>
-            <wrap class="buttonWrap">
+            </div>
+            <div class="buttonWrap">
                 <button type="submit" class="button">削除</button>
-                <button class="button"><a th:href="@{/dummy/success}">メインメニューに戻る</a></button>
-            </wrap>
+                <a th:href="@{/dummy/success}" class="button">メインメニューに戻る</a>
+            </div>
         </form>
         
 

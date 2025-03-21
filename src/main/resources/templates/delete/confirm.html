@@ -25,7 +25,16 @@
             </table>
             <wrap class="buttonWrap">
                 <button type="submit" class="button">削除</button>
-                <button class="button"><a th:href="@{/dummy/success}">キャンセル</a></button>
+
+                <!-- delete/searchのとき -->
+                <a th:if="${source == 'delete'}"
+                   th:href="@{/delete/search(id=${searchId})}" 
+                   class="button">戻る</a>
+
+                <!-- dummy/searchのとき -->
+                <a th:if="${source == 'dummy'}"
+                   th:href="@{/dummy/search}"
+                   class="button">戻る</a>
             </wrap>
         </form>
 
