@@ -10,12 +10,10 @@ $(document).ready(function() {
         let endDateFrom = $("#endDateFrom").val();
         let endDateTo = $("#endDateTo").val();
 
-        // 社員ID（数値チェックしてそれ以外はNGをだすうううう）
+        // 数値チェック
         if (employeeId && isNaN(employeeId)) {
             errorMessages.push("社員IDは数値のみ許可されています。");
         }
-
-        // 年齢チェック（数値チェックしてそれ以外はNGをだすうううう）
         if (ageFrom && isNaN(ageFrom)) {
             errorMessages.push("年齢（開始）は数値のみ許可されています。");
         }
@@ -23,35 +21,55 @@ $(document).ready(function() {
             errorMessages.push("年齢（終了）は数値のみ許可されています。");
         }
 
-        // 年齢の範囲ェックしてそれ以外はNGをだすうううう
+        // 年齢の範囲チェック
         if (ageFrom && ageTo && parseInt(ageFrom) > parseInt(ageTo)) {
             errorMessages.push("開始年齢は終了年齢以下でなければなりません。");
         }
 
-        // 日付チェックしてそれ以外はNGをだすうううう（yyyy/MM/dd形式）
+        // 日付チェック（yyyy/MM/dd形式）
         let dateRegex = /^\d{4}\/\d{2}\/\d{2}$/;
-        if (startDateFrom && !dateRegex.test(startDateFrom)) {
-            errorMessages.push("開始日は yyyy/MM/dd の形式で入力してください。");
-        }
-        if (startDateTo && !dateRegex.test(startDateTo)) {
-            errorMessages.push("終了日は yyyy/MM/dd の形式で入力してください。");
-        }
-        if (endDateFrom && !dateRegex.test(endDateFrom)) {
-            errorMessages.push("終了日（開始）は yyyy/MM/dd の形式で入力してください。");
-        }
-        if (endDateTo && !dateRegex.test(endDateTo)) {
-            errorMessages.push("終了日（終了）は yyyy/MM/dd の形式で入力してください。");
+
+        function isValidDate(dateStr) {
+            if (!dateRegex.test(dateStr)) return false; // 形式チェック
+            let date = new Date(dateStr.replace(/\//g, "-"));
+            return date instanceof Date && !isNaN(date.getTime()); // 存在する日付かチェック
         }
 
-        // 終了日の範囲チェックしてそれ以外はNGをだすうううう
-        if (endDateFrom && endDateTo && endDateFrom > endDateTo) {
-            errorMessages.push("終了日（開始）は終了日（終了）以前にしてください。");
+        function parseDate(dateStr) {
+            return new Date(dateStr.replace(/\//g, "-"));
         }
 
-        // エラーがある場合、ポップアップ表示して検索を中止します(ΦωΦ)ﾌﾌﾌ…
+        if (startDateFrom && !isValidDate(startDateFrom)) {
+            errorMessages.push("開始日（開始）は yyyy/MM/dd の形式で正しい日付を入力してください。");
+        }
+        if (startDateTo && !isValidDate(startDateTo)) {
+            errorMessages.push("開始日（終了）は yyyy/MM/dd の形式で正しい日付を入力してください。");
+        }
+        if (endDateFrom && !isValidDate(endDateFrom)) {
+            errorMessages.push("終了日（開始）は yyyy/MM/dd の形式で正しい日付を入力してください。");
+        }
+        if (endDateTo && !isValidDate(endDateTo)) {
+            errorMessages.push("終了日（終了）は yyyy/MM/dd の形式で正しい日付を入力してください。");
+        }
+
+        // 🔹 開始日（開始） > 開始日（終了）のチェック
+        if (startDateFrom && startDateTo && isValidDate(startDateFrom) && isValidDate(startDateTo)) {
+            if (parseDate(startDateFrom) > parseDate(startDateTo)) {
+                errorMessages.push("開始日（開始）は開始日（終了）以前の日付にしてください。");
+            }
+        }
+
+        // 🔹 終了日（開始） > 終了日（終了）のチェック
+        if (endDateFrom && endDateTo && isValidDate(endDateFrom) && isValidDate(endDateTo)) {
+            if (parseDate(endDateFrom) > parseDate(endDateTo)) {
+                errorMessages.push("終了日（開始）は終了日（終了）以前の日付にしてください。");
+            }
+        }
+
+        // エラーがある場合、アラート表示して送信をキャンセル
         if (errorMessages.length > 0) {
             alert(errorMessages.join("\n"));
-            event.preventDefault(); // フォーム送信をキャンセルさせていだきますｗ
+            event.preventDefault();
         }
     });
 });

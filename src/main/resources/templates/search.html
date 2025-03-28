@@ -1,136 +1,179 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>社員情報検索</title>
-  <link rel="stylesheet" href="/styles.css">
-  <style>
-    .error-message {
-      color: red;
-      font-weight: bold;
-      margin: 20px 0;
-      padding: 10px;
-      border: 2px solid red;
-      background-color: #fdd;
-    }
-    .info-message {
-      color: blue;
-      font-weight: bold;
-      margin: 20px 0;
-    }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/validation.js"></script>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社員情報検索</title>
+    <link rel="stylesheet" href="/searchstyles.css">
+    <style>
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 10px;
+            border: 2px solid red;
+            background-color: #fdd;
+        }
+        .info-message {
+            color: blue;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/validation.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 検索フォームのリセット処理
+            function resetForm() {
+                document.getElementById("searchForm").reset();
+                let inputs = document.querySelectorAll("#searchForm input");
+                inputs.forEach(input => input.value = "");
+            }
+            
+            //  削除ボタンをチェックボックスが選択されたときのみ有効化
+            const checkboxes = document.querySelectorAll(".delete-checkbox");
+            const deleteButton = document.getElementById("deleteButton");
+
+            function updateDeleteButton() {
+                deleteButton.disabled = !Array.from(checkboxes).some(c => c.checked);
+            }
+
+            if (checkboxes.length > 0) {
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener("change", updateDeleteButton);
+                });
+            }
+
+            // 🔹 ID クリック時に `POST` で更新ページに送信する処理
+            document.querySelectorAll(".update-button").forEach(button => {
+                button.addEventListener("click", function(event) {
+                    let id = this.getAttribute("data-id");
+                    document.getElementById("hiddenId").value = id;
+                    document.getElementById("updateForm").submit();
+                });
+            });
+
+            // 🔹 リセットボタンを設定（リセットボタンがある場合のみ動作）
+            const resetButton = document.getElementById("resetButton");
+            if (resetButton) {
+                resetButton.addEventListener("click", resetForm);
+            }
+        });
+    </script>
 </head>
 <body>
-  <div class="main-header">
-    <div class="menu-title">
-      <h1>社員情報検索</h1>
+    <div class="main-header">
+        <div class="menu-title">
+            <h1>社員情報検索</h1>
+        </div>
+        <header th:replace="~{fragments/header}"></header>
     </div>
-    <header th:replace="~{fragments/header}"></header>
-  </div>
 
-  <div class="info-message">
-    <p>以下の条件で検索を行います：</p>
-    <ul>
-      <li>条件チェック：（開始）と（終了）は左が右を上回らないようにする。</li>
-    </ul>
-  </div>
+    <div class="info-message">
+        <p>以下の条件で検索を行います：</p>
+        <ul>
+            <li>条件チェック：（開始）と（終了）は左が右を上回らないようにする。</li>
+        </ul>
+    </div>
 
-  <!-- 🔻🔻 ここにエラーメッセージを追加！🔻🔻 -->
-  <div class="error-message" th:if="${error != null}">
-    <p th:utext="${error}"></p>
-  </div>
+    <!-- 🔻 エラーメッセージを表示 -->
+    <div class="error-message" th:if="${error != null}">
+        <p th:utext="${error}"></p>
+    </div>
 
-  <div class="search-container">
-	<form id="searchForm" th:action="@{/search}" method="get">
-      <div class="form-group">
-        <label for="employeeId" class="form-label">社員ID（数値のみ）</label>
-		<input type="text" id="employeeId" name="id" class="form-input" placeholder="社員ID">
-      </div>
-      <div class="form-group">
-        <label for="name" class="form-label">社員名</label>
-        <input type="text" id="name" name="name" class="form-input" placeholder="社員名" autocomplete="on" >
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="ageFrom" class="form-label">年齢（開始）</label>
-          <input type="text" id="ageFrom" name="ageFrom" class="form-input" placeholder="年齢（開始）">
-        </div>
-        <div class="form-group">
-          <label for="ageTo" class="form-label">年齢（終了）</label>
-          <input type="text" id="ageTo" name="ageTo" class="form-input" placeholder="年齢（終了）">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="startDateFrom" class="form-label">開始日（開始）</label>
-          <input type="text" id="startDateFrom" name="startDateFrom" class="form-input" placeholder="yyyy/MM/dd">
-        </div>
-        <div class="form-group">
-          <label for="startDateTo" class="form-label">開始日（終了）</label>
-          <input type="text" id="startDateTo" name="startDateTo" class="form-input" placeholder="yyyy/MM/dd">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="endDateFrom" class="form-label">終了日（開始）</label>
-          <input type="text" id="endDateFrom" name="endDateFrom" class="form-input" placeholder="yyyy/MM/dd">
-        </div>
-        <div class="form-group">
-          <label for="endDateTo" class="form-label">終了日（終了）</label>
-          <input type="text" id="endDateTo" name="endDateTo" class="form-input" placeholder="yyyy/MM/dd">
-        </div>
-      </div>
-      <button type="submit">検索</button>
-      <button type="reset">クリア</button>
+	<div class="search-container">
+	    <form id="searchForm" th:action="@{/search}" method="post" th:object="${searchRequest}">
+	        <div class="form-group">
+	            <label for="employeeId" class="form-label">社員ID（数値のみ）</label>
+	            <input type="text" id="employeeId" class="form-input" th:field="*{id}" placeholder="社員ID">
+	        </div>
+	        <div class="form-group">
+	            <label for="name" class="form-label">社員名</label>
+	            <input type="text" id="name" class="form-input" th:field="*{name}" placeholder="社員名">
+	        </div>
+	        <div class="form-row">
+	            <div class="form-group">
+	                <label for="ageFrom" class="form-label">年齢（開始）</label>
+	                <input type="text" id="ageFrom" class="form-input" th:field="*{ageFrom}" placeholder="年齢（開始）">
+	            </div>
+	            <div class="form-group">
+	                <label for="ageTo" class="form-label">年齢（終了）</label>
+	                <input type="text" id="ageTo" class="form-input" th:field="*{ageTo}" placeholder="年齢（終了）">
+	            </div>
+	        </div>
+	        <div class="form-row">
+	            <div class="form-group">
+	                <label for="startDateFrom" class="form-label">開始日（開始）</label>
+	                <input type="text" id="startDateFrom" class="form-input" th:field="*{startDateFrom}" placeholder="yyyy/MM/dd">
+	            </div>
+	            <div class="form-group">
+	                <label for="startDateTo" class="form-label">開始日（終了）</label>
+	                <input type="text" id="startDateTo" class="form-input" th:field="*{startDateTo}" placeholder="yyyy/MM/dd">
+	            </div>
+	        </div>
+	        <div class="form-row">
+	            <div class="form-group">
+	                <label for="endDateFrom" class="form-label">終了日（開始）</label>
+	                <input type="text" id="endDateFrom" class="form-input" th:field="*{endDateFrom}" placeholder="yyyy/MM/dd">
+	            </div>
+	            <div class="form-group">
+	                <label for="endDateTo" class="form-label">終了日（終了）</label>
+	                <input type="text" id="endDateTo" class="form-input" th:field="*{endDateTo}" placeholder="yyyy/MM/dd">
+	            </div>
+	        </div>
+	        <button type="submit">検索</button>
+	        <button type="button" id="resetButton">クリア</button>
+	    </form>
+	</div>
+
+    <!-- 🔻 検索結果の表示 -->
+    <div class="results-container" th:if="${error == null and employees != null and employees.size() > 0}">
+        <p>検索結果: <span th:text="${employees.size()}"></span>件</p>
+
+        <form id="deleteForm" action="/delete/search" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>選択</th>
+                        <th>ID</th>
+                        <th>名前</th>
+                        <th>部署</th>
+                        <th>年齢</th>
+                        <th>開始日</th>
+                        <th>終了日</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="employee : ${employees}">
+                        <td>
+                            <input type="checkbox" name="selectedIds" th:value="${employee.id}" class="delete-checkbox">
+                        </td>
+                        <td>
+                            <button type="button" class="update-button" th:data-id="${employee.id}" th:text="${employee.id}"></button>
+                        </td>
+                        <td th:text="${employee.name}"></td>
+                        <td th:text="${employee.department}"></td>
+                        <td th:text="${employee.age}"></td>
+                        <td th:text="${employee.startDate}"></td>
+                        <td th:text="${employee.endDate}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" id="deleteButton" disabled>選択した項目を削除</button>
+        </form>
+    </div>
+
+    <!-- 🔹 更新ページに `POST` 送信するための隠しフォーム -->
+    <form id="updateForm" th:action="@{/UpdateLogin}" method="post">
+        <input type="hidden" name="id" id="hiddenId">
     </form>
-  </div>
 
-  <div class="results-info" th:if="${employees != null}">
-      <p th:if="${employees.size() > 0}">検索結果: <span th:text="${employees.size()}"></span>件</p>
-      <p th:if="${employees.size() == 0}" style="color: red;">検索結果が見つかりませんでした。</p>
-  </div>
-
-  <form action="/delete" method="post">
-    <div class="results-container" th:if="${employees != null}">
-      <table>
-        <thead>
-          <tr>
-            <th>選択</th>
-            <th>ID</th>
-            <th>名前</th>
-            <th>部署</th>
-            <th>年齢</th>
-            <th>開始日</th>
-            <th>終了日</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="employee : ${employees}">
-            <td>
-              <input type="checkbox" name="selectedIds" th:value="${employee.id}">
-            </td>
-            <td th:text="${employee.id}"></td>
-            <td th:text="${employee.name}"></td>
-            <td th:text="${employee.department}"></td>
-            <td th:text="${employee.age}"></td>
-            <td th:text="${employee.startDate}"></td>
-            <td th:text="${employee.endDate}"></td>
-          </tr>
-        </tbody>
-      </table>
-      <button type="submit">選択した項目を削除</button>
+    <div class="action-buttons">
+        <a href="/mainmenu" class="button">メニュー</a>
+        <a href="/RegistrationFoam" class="button">登録</a>
     </div>
-  </form>
 
-  <div class="action-buttons">
-    <a href="/" class="button">メニュー</a>
-    <a href="/register" class="button">登録</a>
-  </div>
-
-  <footer th:replace="~{fragments/footer}"></footer>
+    <footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>
