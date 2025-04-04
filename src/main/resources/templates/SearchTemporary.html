@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>SearchTemporary</title>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <div th:insert="~{Registration_Update_header_footer/Header}"></div>
+
+    <!-- <h1>テスト用　検索ページ</h1> -->
+
+    <!-- 登録画面へのボタン -->
+    <button type="button" onclick="window.location.href = '/RegistrationFoam';">登録画面に行く</button>
+
+    <!-- UpdateLogin へのボタン -->
+    <button type="button" onclick="window.location.href = '/UpdateLogin';">ログイン画面に行く</button>
+
+    <!-- テスト用 ID: UpdateIdLink に遷移 -->
+    <h2>テスト用 ID</h2>
+    <a href="/UpdateIdLink?userid=1">テストID: 1</a>
+
+    <!-- フッター -->
+    <div th:insert="~{Registration_Update_header_footer/Footer}"></div>
+
+
+</body>
+</html>

@@ -61,11 +61,10 @@
 </head>
 <body>
 
-	<h1>社員情報登録画面（入力）</h1>
+	<!-- <h1>社員情報登録画面（入力）</h1> -->
 
     <!-- ヘッダー -->
-    <div th:replace="~{Registration_Update_header_footer/header :: header_fragment1}"></div>
-    <div th:replace="~{Registration_Update_header_footer/header :: header_fragment2}"></div>
+    <div th:insert="~{Registration_Update_header_footer/Header}"></div>
 
 	<form id = "inputForm" action="/RegistrationConfirm" method="post" onsubmit="return validateInput();">
 
@@ -88,7 +87,7 @@
 
 
     <!-- フッター -->
-    <div th:replace="~{Registration_Update_header_footer/footer :: footer_fragment}"></div>
+    <div th:insert="~{Registration_Update_header_footer/Footer}"></div>
 
 </body>
 

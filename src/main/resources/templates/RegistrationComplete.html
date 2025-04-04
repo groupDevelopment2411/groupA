@@ -5,10 +5,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>登録完了</h1>
+
+	<!-- ヘッダー -->
+	<div th:insert="~{Registration_Update_header_footer/Header}"></div>
+
+	<!-- <h1>登録完了</h1> -->
 	<p>登録が完了しました。</p>
 
 	<input type="button" onclick="location.href='/backToForm'" value="戻る">
+
+	<!-- フッター -->
+	<div th:insert="~{Registration_Update_header_footer/Footer}"></div>
 
 </body>
 </html>

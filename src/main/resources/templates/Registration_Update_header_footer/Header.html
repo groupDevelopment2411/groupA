@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ヘッダー</title>
+</head>
+<body>
+    <div class="header">
+        <!-- タイトル -->
+        <!-- <div class="header-right" th:fragment="header_fragment1">
+            <h1>タイトル</h1>
+        </div> -->
+
+        <!-- タイトルをコントローラーから引っ張ってくる場合 -->
+        <div class="header-right" th:fragment="header_fragment1">
+            <h1 th:text="${pageTitle}">デフォルトタイトル</h1>
+        </div>
+
+        <div class="header-left" th:fragment="header_fragment2">
+            <p><span th:text="${userid}">仮のユーザーID</span></p>
+            <p><span th:text="${loginTime}">仮のログイン時間</span></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>情報更新フォーム</title>
+
+
+</head>
+<body>
+    <h2>情報更新フォーム</h2>
+
+<!-- 更新フォーム -->
+<form action="/UpdateForm" method="POST" onsubmit="return validateForm();">
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" th:value="${user.id}" readonly />
+    <br>
+    <label for="name">名前:</label>
+    <input type="text" id="name" name="name" th:value="${user.name}" />
+    <br>
+    <label for="age">年齢:</label>
+    <input type="number" id="age" name="age" th:value="${user.age}" />
+    <br>
+    <label for="password1">パスワード1:</label>
+    <input type="password" id="password1" name="password1" th:value="${user.password1}" />
+    <br>
+    <label for="password2">パスワード2:</label>
+    <input type="password" id="password2">
+    <br>
+    <label for="startDate">開始日:</label>
+    <input type="date" id="startDate" name="startDate" th:value="${user.startDate}" />
+    <br>
+    <label for="endDate">終了日:</label>
+    <input type="date" id="endDate" name="endDate" th:value="${user.endDate}" />
+    <br>
+    <button type="submit">確認する</button>
+</form>
+
+<!-- アラートで表示したい値を受け取るだけ -->
+<p ht:text = "error : ${errors}"></p>
+
+</body>
+
+    <!-- スクリプト（クライアント側バリデーション） -->
+    <script>
+        function validateForm() {
+            const password1 = document.getElementById("password1").value;
+            const password2 = document.getElementById("password2").value;
+
+            // パスワード1が空白の場合のアラート
+            if (!password1) {
+                alert("パスワード1を入力してください。");
+                return false;
+            }
+
+            // パスワード2が空白の場合のアラート
+            if (!password2) {
+                alert("パスワード2を入力してください。");
+                return false;
+            }
+
+            // パスワード1とパスワード2の一致確認
+            if (password1 !== password2) {
+                alert("パスワード1とパスワード2が一致しません。");
+                return false;
+            }
+
+            return true; // 問題がない場合は送信
+        }
+
+
+
+    </script>
+
+</html>

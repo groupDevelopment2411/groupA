@@ -1,77 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function loadEmployeeData() {
-            var userid = document.getElementById("userid").value;
-
-            if(userid) {
-        $.ajax({
-            url: "/loadEmployeeData",
-            type: "GET",
-            data: {
-                id: $("#note").val()
-            },
-            done: function(response){
-                if(response.error) {
-                    document.getElementById("error").textContent = response.error;
-                    document.getElementById("result").innerHTML = "";
-                } else {
-                    var registration = response.registration;
-                    document.getElementById("name").value = update.name || '';
-                    document.getElementById("age").value = update.age || '';
-                    document.getElementById("startDate").value = update.startDate || '';
-                    document.getElementById("endDate").value = update.endDate || '';
-                    document.getElementById("password").value = update.password || '';
-                    document.getElementById("confirmPassword").value = update.password || '';
-                    document.getElementById("error").textContent = "";
-                }
-            },
-            error: function(){
-                document.getElementById("error").textContent = "An error occurred while processing the request.";
-            }
-        });
-    } else {
-        document.getElementById("name").value = '';
-        document.getElementById("age").value = '';
-        document.getElementById("startDate").value = '';
-        document.getElementById("endDate").value = '';
-        document.getElementById("password").value = '';
-        document.getElementById("confirmPassword").value = '';
-        document.getElementById("error").textContent = "";
-    }
-        }
-    </script>
 </head>
 <body>
+    <!-- <h2>情報更新フォーム</h2> -->
 
-    <h1>社員情報更新（入力）/h1>
-        
-        <form id = "inputForm" action="/UpdateConfirm" method="post" onsubmit="return validateInput();">
+    <!-- ヘッダー -->
+    <div th:insert="~{Registration_Update_header_footer/Header}"></div>
 
-            <label for="id">社員ID:</label>
-            <input type="text" id="id" name="id"><br><br>
-    
-            <label for="name">社員名:</label>
-            <input type="text" id="name" name="name"><br><br>
-    
-            <label for="age">年齢:</label>
-            <input type="text" id="age" name="age"><br><br>
-    
-            <label for="password1">パスワード:</label>
-            <input type="password" id="password1" name="password1"><br><br>
-    
-            <label for="password2">パスワード確認:</label>
-            <input type="password" id="password2" name="password2"><br><br>
-    
-            <input type="submit" value="確認">
-    
-            <input type="submit" value="削除">
-    
-            <input type="button" onclick="location.href='/backToSearch'" value="戻る">
-        </form>
+    <!-- 更新フォーム -->
+    <form action="/UpdateForm" method="POST" onsubmit="return validateForm();">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" th:value="${user.id}" readonly />
+        <br>
+        <label for="name">名前:</label>
+        <input type="text" id="name" name="name" th:value="${user.name}" />
+        <br>
+        <label for="age">年齢:</label>
+        <input type="number" id="age" name="age" th:value="${user.age}" />
+        <br>
+        <label for="password1">パスワード1:</label>
+        <input type="password" id="password1" name="password1" th:value="${user.password1}" />
+        <br>
+        <label for="password2">パスワード2:</label>
+        <input type="password" id="password2">
+        <br>
+        <label for="startDate">開始日:</label>
+        <input type="date" id="startDate" name="startDate" th:value="${user.startDate}" />
+        <br>
+        <label for="endDate">終了日:</label>
+        <input type="date" id="endDate" name="endDate" th:value="${user.endDate}" />
+        <br>
+        <button type="submit">確認する</button>
+        <input type="button" onclick="location.href='/UpdateLogin'" value="入力画面に戻る">
+    </form>
+
+    <!-- データを非表示の要素に埋め込む -->
+    <div id="errorData" th:attr="data-errors=${errors != null ? #strings.arrayJoin(errors, ',') : ''}" style="display:none;"></div> 
+
+    <!-- エラー表示テスト -->
+    <!-- <ul>
+        <li th:each="error : ${errors}" th:text="${error}"></li>
+    </ul> -->
+
+
+    <!-- フッター -->
+    <div th:insert="~{Registration_Update_header_footer/Footer}"></div>
+
 </body>
+
+
+    <!-- スクリプト（クライアント側バリデーション） -->
+    <script>
+        function validateForm() {
+            const password1 = document.getElementById("password1").value;
+            const password2 = document.getElementById("password2").value;
+
+            // パスワード1が空白の場合のアラート
+            if (!password1) {
+                alert("パスワード1を入力してください。");
+                return false;
+            }
+
+            // パスワード2が空白の場合のアラート
+            if (!password2) {
+                alert("パスワード2を入力してください。");
+                return false;
+            }
+
+            // パスワード1とパスワード2の一致確認
+            if (password1 !== password2) {
+                alert("パスワード1とパスワード2が一致しません。");
+                return false;
+            }
+
+            return true; // 問題がない場合は送信
+        }
+
+        // 受け取った文字数分ループさせてエラーをつなげる
+        document.addEventListener("DOMContentLoaded", function() {
+            const errorElement = document.getElementById("errorData");
+            const errorCodesRaw = errorElement.getAttribute("data-errors");
+
+            // エラーがある場合のみ処理
+            if (errorCodesRaw && errorCodesRaw.trim().length > 0) {
+                const errorCodes = errorCodesRaw.split(",").map(code => parseInt(code.trim(), 10)).filter(code => !isNaN(code)); // 無効な値を除外
+                const errorMessages = [];
+
+                errorCodes.forEach(code => {
+                    switch (code) {
+                        case 1:
+                            errorMessages.push("パスワードは8文字以上である必要があります。");
+                            break;
+                        case 2:
+                            errorMessages.push("パスワードには少なくとも1つの大文字を含めてください。");
+                            break;
+                        case 3:
+                            errorMessages.push("パスワードには少なくとも1つの小文字を含めてください。");
+                            break;
+                        case 4:
+                            errorMessages.push("パスワードには少なくとも1つの数字を含めてください。");
+                            break;
+                        case 5:
+                            errorMessages.push("パスワードには少なくとも1つの記号を含めてください。");
+                            break;
+                        default:
+                            console.warn("未知のエラーコード: " + code); // 予期しないコードの警告
+                            break;
+                    }
+                });
+
+                // 1回のアラートでまとめて表示
+                if (errorMessages.length > 0) {
+                    alert(errorMessages.join("\n")); // 複数のメッセージを改行して表示
+                }
+            }
+        });
+
+    </script>
+
 </html>

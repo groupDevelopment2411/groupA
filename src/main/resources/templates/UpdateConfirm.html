@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <div th:insert="~{Registration_Update_header_footer/Header}"></div>
+
+    <div class="container">
+        <!-- <h2>入力情報確認</h2> -->
+        内容に問題が無ければボタンを押す
+        <form action="/UpdateComplete" method="POST">
+            <div class="form-group">
+                <label for="id">社員ID:</label>
+                <input type="text" class="form-control" id="id" name="id" th:value="${user.id}" readonly />
+            </div>
+            <div class="form-group">
+                <label for="name">社員名:</label>
+                <input type="text" class="form-control" id="name" name="name" th:value="${user.name}" readonly />
+            </div>
+            <div class="form-group">
+                <label for="age">年齢:</label>
+                <input type="text" class="form-control" id="age" name="age" th:value="${user.age}" readonly />
+            </div>
+            <div class="form-group">
+                <label for="password1">パスワード:</label>
+                <input type="password" class="form-control" id="password1" name="password1" th:value="${user.password1}" />
+            </div>
+            <div class="form-group">
+                <label for="startDate">開始日:</label>
+                <input type="text" class="form-control" id="startDate" name="startDate" th:value="${user.startDate}" readonly />
+            </div>
+            <div class="form-group">
+                <label for="endDate">終了日:</label>
+                <input type="text" class="form-control" id="endDate" name="endDate" th:value="${user.endDate}" readonly />
+            </div>
+            <button type="submit" class="btn btn-primary">更新する</button>
+            
+        </form>
+
+        <form action="/ReturnToUpdateForm" method="POST">
+            <input type="hidden" name="id" th:value="${user.id}" />
+            <input type="hidden" name="name" th:value="${user.name}" />
+            <input type="hidden" name="age" th:value="${user.age}" />
+            <input type="hidden" name="password1" th:value="${user.password1}" />
+            <input type="hidden" name="startDate" th:value="${user.startDate}" />
+            <input type="hidden" name="endDate" th:value="${user.endDate}" />
+            <button type="submit" class="btn btn-secondary">入力画面に戻る</button>
+        </form>
+        
+
+    </div>
+
+    <!-- フッター -->
+    <div th:insert="~{Registration_Update_header_footer/Footer}"></div>
+
+</body>
+</html>
+

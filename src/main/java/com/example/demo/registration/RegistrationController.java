@@ -30,68 +30,14 @@ public class RegistrationController {
 	
 	
 	@RequestMapping("/RegistrationFoam")
-	public String RegistrationFoam() {
+	public String RegistrationFoam(Model m) {
+		
+//		ヘッダータイトル用
+		m.addAttribute("pageTitle", "社員情報登録画面（入力）");
+		
 		return "RegistrationFoam";
 	}
 	
-//	@PostMapping("/Registration")
-//	public String insertEmployee(Model m,
-//			@RequestParam("name") String name,
-//			@RequestParam("age") String ageString,
-//			@RequestParam("password1") String password1,
-//			@RequestParam("password2") String password2
-//			
-////			@RequestParam("") Date startdate,
-////			@RequestParam("") Date enddate
-//			
-//			) {
-//		
-////		ageに文字が入っていないかcheck
-////		ＨＴＭＬで警告ポップを出すようにする
-//		int age;
-//		try {
-//			age = Integer.parseInt(ageString);
-//		}catch(NumberFormatException e){
-//			m.addAttribute("result","数値以外が入力されてる");
-//			return "result";
-//		}
-//		
-//		
-////		passwordが「半角英数」「大文字」「小文字」「8文字以上」をチェック。
-////		「半角英のみ」「半角数のみ」「８文字以下」を却下する。
-////		ＨＴＭＬで警告ポップを出すようにする
-//		
-//		PasswordCheck pc = new PasswordCheck();
-//		
-//		if(!pc.passwordCheck(password1)) {
-//			m.addAttribute("result","正確に入力できていない");
-//			return "result";
-//		}
-//		
-////		password2がpassword1と完全一致しているか確認
-////		ＨＴＭＬで警告ポップを出すようにする
-//		
-//		if(!password1.equals(password2)) {
-//			m.addAttribute("result","パスワードと合っていない");
-//			return "result";
-//		}
-		
-		
-//		データベースを更新
-//		登録した日を入れる
-		
-//		LocalDate today = LocalDate.now();
-//		Date startdate = Date.valueOf(today);
-//		
-//		Registration registration = new Registration(name, age, password1, password2, startdate, null);
-//		
-//		service.insert(registration);
-//		
-//		
-//		m.addAttribute("result","更新成功");
-//		
-//		return "result";
-//	}
 	
 	
 	@PostMapping("/RegistrationConfirm")
@@ -101,6 +47,8 @@ public class RegistrationController {
 			@RequestParam("password1") String password
 			) {
 		
+//		ヘッダータイトル用
+		m.addAttribute("pageTitle", "確認画面");
 		
 		int age = Integer.parseInt(ageString);
 		
@@ -126,6 +74,8 @@ public class RegistrationController {
 		
 		int age = Integer.parseInt(ageString);
 		
+//		ヘッダータイトル用
+		m.addAttribute("pageTitle", "登録完了");
 		
 //		データベースを更新
 //		登録した日を入れる
@@ -143,26 +93,23 @@ public class RegistrationController {
 	
 	
 	@RequestMapping("/backToForm")
-	public String backToForm() {
+	public String backToForm(Model m) {
+		
+//		ヘッダータイトル用
+		m.addAttribute("pageTitle", "社員情報登録画面（入力）");
+		
 		return "RegistrationFoam";
 	}
 	
 	
 	@RequestMapping("/backToSearch")
-	public String backToSearch() {
+	public String backToSearch(Model m) {
+		
+//		ヘッダータイトル用
+		m.addAttribute("pageTitle", "テスト用メニュー");
+		
 		return "SearchTemporary";
 	}
-	
-//	前の画面からデータを受け取ってヘッダを表示させる
-	
-    @RequestMapping("/Header")
-    public String home(Model model, HttpSession session) {
-        model.addAttribute("username", session.getAttribute("username"));
-        model.addAttribute("loginTime", session.getAttribute("loginTime"));
-        model.addAttribute("pageTitle", "Home");
-
-        return "Header";
-    }
     
 	
 //	ここから下はテストの為の仮ページ
@@ -170,7 +117,11 @@ public class RegistrationController {
     
 
     @RequestMapping("/SearchTemporary")
-    public String searchTemporary() {
+    public String searchTemporary(Model m) {
+    	
+//		ヘッダータイトル用
+		m.addAttribute("pageTitle", "テスト用メニュー");
+		
         return "SearchTemporary";
     }
     
