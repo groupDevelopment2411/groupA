@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メインメニュー</title>
+  <link rel="stylesheet" href="/mainmenustyles.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+  <div class="main-header">
+    <div class="menu-title">
+      <h1>トップメニュー</h1>
+    </div>
+	<header th:replace="fragments/header :: header"></header> <!-- 共通ヘッダーをインクルード -->
+  </div>
+
+
+  <div class="links-container">
+    <nav class="menu-links">
+      <div>
+        <a href="/search">社員情報検索</a>
+      </div>
+      <div>
+        <a href="/RegistrationFoam">社員情報登録</a>
+<!--		上記のマッピング設定、スラックで共有されたスペルにしています-->
+      </div>
+      <div>
+        <a href="/delete/search">社員情報削除</a>
+<!--		上記のマッピング設定、スラックで共有されたスペルにしています-->
+      </div>
+      <div>
+        <a href="/UpdateLogin">社員情報更新</a>
+<!--		上記のマッピング設定、スラックで共有されたスペルにしています-->
+      </div>
+    </nav>
+  </div>
+
+  <footer th:replace="fragments/footer :: footer"></footer> <!-- 共通フッターをインクルード -->
+</body>
+</html>
