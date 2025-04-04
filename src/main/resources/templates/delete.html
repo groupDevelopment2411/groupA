@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>削除確認テストページ</title>
+    <style>
+        .message {
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>削除確認ページ</h1>
+
+    <p class="message error" th:if="${message != null}" th:text="${message}"></p>
+
+    <h2>ポストで飛ばす選択されたID</h2>
+    <ul>
+        <li th:each="id : ${selectedIds}" th:text="'selectedIds: ' + ${id}"></li>
+    </ul>
+
+    <p><a href="/search">メニューに戻る</a></p>
+</body>
+</html>
+
