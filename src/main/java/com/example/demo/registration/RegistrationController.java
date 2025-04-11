@@ -38,7 +38,31 @@ public class RegistrationController {
 		return "RegistrationFoam";
 	}
 	
-	
+	@RequestMapping("/ReturnToRegistrationForm")
+	public String ReturnToRegistrationForm(Model m,
+			@RequestParam("name") String name,
+			@RequestParam("age") String ageString,
+			@RequestParam("password1") String password
+			) {
+		
+//		ヘッダータイトル用
+		m.addAttribute("pageTitle", "社員情報登録画面（入力）");
+		
+	    m.addAttribute("name", name);
+	    m.addAttribute("age", ageString);
+	    m.addAttribute("password1", password);
+	    
+	    
+	    // System.out.printlnで内容を確認
+	    System.out.println("Userオブジェクトの初期値:");
+	    System.out.println("名前: " + name);
+	    System.out.println("年齢: " + ageString);
+	    System.out.println("パスワード1: " + password);
+	    
+        
+        return "ReturnToRegistrationForm";
+        
+	}
 	
 	@PostMapping("/RegistrationConfirm")
 	public String Confirm(Model m,

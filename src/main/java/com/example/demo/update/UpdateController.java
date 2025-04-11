@@ -153,12 +153,6 @@ public class UpdateController {
 	    return "UpdateForm";
 	    
 	}
-	    
-	
-//	@RequestMapping("/UpdateFoam")
-//	public String UpdateForm() {
-//		return "UpdateFoam";
-//	}
 	
 	
 	@PostMapping("/UpdateForm")
@@ -181,9 +175,18 @@ public class UpdateController {
 	    System.out.println("パスワード1: " + password1);
 	    System.out.println("開始日: " + startDate);
 	    System.out.println("終了日: " + endDate);
+	    
+	    
+	    String endDate2;
+	    if (endDate == null || endDate.isEmpty()) {
+	        endDate2 = null;
+	    } else {
+	        endDate2 = endDate;
+	    }
+
 
 	    // `user` オブジェクトを作成してモデルに渡す（checkUserId と統一）
-	    Update user = new Update(id, name, age, password1, startDate, endDate);
+	    Update user = new Update(id, name, age, password1, startDate, endDate2);
 	    m.addAttribute("user", user); 
 
 	    // エラーチェック
@@ -206,7 +209,8 @@ public class UpdateController {
 	            errorMessages += errorMessages.isEmpty() ? "5" : ",5";
 	        }
 	    }
-
+	    
+	    
 	    // エラーがある場合はフォームへ戻る（データを維持）
 	    if (!errorMessages.isEmpty()) {
 	        System.out.println("アラートの中身: " + errorMessages);
@@ -214,63 +218,9 @@ public class UpdateController {
 	        return "UpdateForm"; 
 	    }
 	    
-//	    m.addAttribute("id", id);
-//	    m.addAttribute("name", name);
-//	    m.addAttribute("age", age);
-//	    m.addAttribute("password", password1);
-//	    m.addAttribute("startDate", startDate);
-//	    m.addAttribute("endDate", endDate);
 
 	    return "UpdateConfirm";
 	}
-
-
-	    
-	
-//	    scriptでデータを受け取ってアラートを出せるかテスト
-//	    String errorMessages = "";
-//	    
-//	    if (password1 == null || password1.isEmpty()) {
-//	    	errorMessages = "0";
-//	    } else {
-//	    	
-//	        if (password1.length() < 8) {
-//	        	errorMessages = errorMessages +"1";
-//	        }
-//	        
-//	        if (!password1.matches(".*[A-Z].*")) {
-//	        	errorMessages = errorMessages + "2";
-//	        }
-//
-//	        if (!password1.matches(".*[a-z].*")) {
-//	        	errorMessages = errorMessages + "3";
-//	        }
-//
-//	        if (!password1.matches(".*\\d.*")) {
-//	        	errorMessages = errorMessages + "4";
-//	        }
-//
-//	        if (!password1.matches(".*[@#$%^&+=!].*")) {
-//	        	errorMessages = errorMessages + "5";
-//	        }
-//	        
-//	        System.out.println("アラートの中身: " + errorMessages);
-//	        
-//	        
-//            m.addAttribute("errors", errorMessages);
-//            
-//            return "testtest";
-//            
-//	    }
-	    
-
-	    // もしエラーがあればフォームに戻る
-//	    if (!errorMessages.isEmpty()) {
-//	        m.addAttribute("errors", errorMessages);
-//	        return "testtest";
-//	    }
-
-	
 	
 	@PostMapping("/UpdateConfirm")
 	public String UpdateConfirm(Model m,
@@ -284,18 +234,6 @@ public class UpdateController {
 		
 //		ヘッダータイトル用
 		m.addAttribute("pageTitle", "入力情報確認");
-		
-		
-//		日付データをストリングに変更してみる
-//	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//	    String stirngStartDate = dateFormat.format(startDate);
-//	    String stirngEndDate = dateFormat.format(endDate);
-		
-//		Update confirm = new Update(id,name,age,password,startDate,endDate);
-
-		
-//	    System.out.println("UpdateConfirmでString型に変更直後: " + startDate + "Stirng型へ" + stirngStartDate);
-//	    System.out.println("UpdateConfirmでString型に変更直後: " + endDate + "Stirng型へ" + stirngEndDate);
 		
 	    // Updateオブジェクトを作成
 	    System.out.println("Updateオブジェクトを作成する前 - startDate: " + startDate);

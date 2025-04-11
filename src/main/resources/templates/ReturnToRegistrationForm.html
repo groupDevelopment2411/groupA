@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>RegistrationFoam</title>
+	<title>ReturnToRegistrationFoam</title>
 
 	<script>
 		function validateInput(){
@@ -69,17 +69,18 @@
 
 	<form id = "inputForm" action="/RegistrationConfirm" method="post" onsubmit="return validateInput();">
 
-		<label for="name">名前<span style="color: red;">＊</label>
-		<input type="text" id="name" name="name"><br><br>
-
-		<label for="age">年齢<span style="color: red;">＊</label>
-		<input type="text" id="age" name="age"><br><br>
-
-		<label for="password1">パスワード<span style="color: red;">＊</label>
-		<input type="password" id="password1" name="password1"><br><br>
-
-		<label for="password2">パスワード確認<span style="color: red;">＊</label>
-		<input type="password" id="password2" name="password2"><br><br>
+		<label for="name">名前:</label>
+		<input type="text" id="name" name="name" th:value="${name}" /><br><br>
+		
+		<label for="age">年齢:</label>
+		<input type="text" id="age" name="age" th:value="${age}" /><br><br>
+		
+		<label for="password1">パスワード:</label>
+		<input type="password" id="password1" name="password1" th:value="${password1}" /><br><br>
+		
+		<label for="password2">パスワード確認:</label>
+		<input type="password" id="password2" name="password2" th:value="${user != null ? user.password1 : ''}" /><br><br>
+		
 
 		<input type="submit" value="更新">
 

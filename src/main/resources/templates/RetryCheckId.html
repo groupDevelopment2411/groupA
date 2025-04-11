@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+
+    <script th:inline="javascript">
+        var errormes = /*[[${response}]]*/ '';
+        console.log("Received response: " + errormes); // デバッグ用のログ出力
+        switch(errormes) {
+            case '1':
+                alert('IDが入力されていない');
+                break;
+            case '2':
+                alert('半角数字で入力されていない');
+                break;
+            case '3':
+                alert('ID見つからない');
+                break;
+            default:
+                break;
+        }
+    </script>
+    
+
+</head>
+<body>
+	<h1>社員情報更新対象者（ID入力）</h1>
+
+    <form id="employeeForm" method="post" action="/checkUserId">
+        <label for="employeeId">ID:</label>
+        <input type="text" id="employeeId" name="userid" required>
+        <button type="submit">社員情報更新画面へ</button>
+    </form>
+
+    <div>
+        <p id="error-message" th:text="${response}"></p>
+    </div>
+
+</body>
+</html>

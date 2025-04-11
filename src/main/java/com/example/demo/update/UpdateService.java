@@ -34,6 +34,13 @@ public class UpdateService {
         System.out.println("Service - Start Date: " + update.getStartDate());
         System.out.println("Service - End Date: " + update.getEndDate());
         
+//      終了日が空白かヌルならヌルを入れる
+        if (update.getEndDate() == null || update.getEndDate().isEmpty()) {
+            update.setEndDate(null);
+        }
+
+
+        
         mapper.updateinsert(update);
     }
 	

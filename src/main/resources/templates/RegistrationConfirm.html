@@ -9,17 +9,29 @@
     <!-- ヘッダー -->
     <div th:insert="~{Registration_Update_header_footer/Header}"></div>
 
-    <!-- <h1>確認画面</h1> -->
-    <p>名前：</p>
+    <!-- <p>名前：</p>
     <p th:text = ${confirm.name}>  </p>
     <p>年齢：</p>
     <p th:text = ${confirm.age}>  </p><br>
     <p>パスワード：</p>
     <p th:text = ${confirm.password1}>  </p><br>
     <p>登録日：</p>
-    <p th:text = ${confirm.startdate}>  </p><br>
+    <p th:text = ${confirm.startdate}>  </p><br> -->
 
-
+    <!-- <h1>確認画面</h1> -->
+    <div class="container">
+        <label for="name">名前：</label>
+        <input type="text" id="name" name="name" th:value="${confirm.name}" readonly /><br><br>
+    
+        <label for="age">年齢：</label>
+        <input type="text" id="age" name="age" th:value="${confirm.age}" readonly /><br><br>
+    
+        <label for="password1">パスワード：</label>
+        <input type="password" id="password1" name="password1" th:value="${confirm.password1}" readonly /><br><br>
+    
+        <label for="startdate">登録日：</label>
+        <input type="text" id="startdate" name="startdate" th:value="${confirm.startdate}" readonly /><br><br>
+    </div>
     
 
     <form action="/RegistrationComplete" method="post">
@@ -29,9 +41,15 @@
         <input type="hidden" name="startdate" th:value="${confirm.startdate}">
 
         <input type="submit" value="更新してよろしいでしょうか？">
+    </form>
 
-        <input type="button" onclick="location.href='/backToForm'" value="戻る">
+    <form action="/ReturnToRegistrationForm" method="POST">
+        <input type="hidden" name="name" th:value="${confirm.name}" />
+        <input type="hidden" name="age" th:value="${confirm.age}" />
+        <input type="hidden" name="password1" th:value="${confirm.password1}" />
+        <input type="hidden" name="startdate" th:value="${confirm.startdate}" />
         
+        <button type="submit" class="btn btn-secondary">入力画面に戻る</button>
     </form>
 
     <!-- フッター -->
