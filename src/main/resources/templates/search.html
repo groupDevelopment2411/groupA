@@ -86,7 +86,7 @@
 	    <form id="searchForm" th:action="@{/search}" method="post" th:object="${searchRequest}">
 	        <div class="form-group">
 	            <label for="employeeId" class="form-label">社員ID（数値のみ）</label>
-	            <input type="text" id="employeeId" class="form-input" th:field="*{id}" placeholder="社員ID">
+	            <input type="text" id="employeeId" class="form-input" th:field="*{id}" placeholder="社員ID" maxlength="9">
 	        </div>
 	        <div class="form-group">
 	            <label for="name" class="form-label">社員名</label>
@@ -95,11 +95,11 @@
 	        <div class="form-row">
 	            <div class="form-group">
 	                <label for="ageFrom" class="form-label">年齢（開始）</label>
-	                <input type="text" id="ageFrom" class="form-input" th:field="*{ageFrom}" placeholder="年齢（開始）">
+	                <input type="text" id="ageFrom" class="form-input" th:field="*{ageFrom}" placeholder="年齢（開始）" maxlength="9">
 	            </div>
 	            <div class="form-group">
 	                <label for="ageTo" class="form-label">年齢（終了）</label>
-	                <input type="text" id="ageTo" class="form-input" th:field="*{ageTo}" placeholder="年齢（終了）">
+	                <input type="text" id="ageTo" class="form-input" th:field="*{ageTo}" placeholder="年齢（終了）" maxlength="9">
 	            </div>
 	        </div>
 	        <div class="form-row">
