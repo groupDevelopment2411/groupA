@@ -17,7 +17,7 @@
         <input type="text" id="name" name="name" th:value="${user.name}" />
         <br>
         <label for="age">年齢<span style="color: red;">＊</label>
-        <input type="number" id="age" name="age" th:value="${user.age}" />
+        <input type="text" id="age" name="age" th:value="${user.age}" />
         <br>
         <label for="password1">パスワード<span style="color: red;">＊</label>
         <input type="password" id="password1" name="password1" th:value="${user.password1}" />
@@ -53,25 +53,50 @@
     <!-- スクリプト（クライアント側バリデーション） -->
     <script>
         function validateForm() {
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const startDate = document.getElementById("startDate").value;
             const password1 = document.getElementById("password1").value;
             const password2 = document.getElementById("password2").value;
 
-            // パスワード1が空白の場合のアラート
+            let errorMessages = []; // エラーメッセージを収集する配列
+
+            // 名前が空白の場合のエラーメッセージ追加
+            if (!name) {
+                errorMessages.push("名前を入力してください。");
+            }
+
+            // 年齢が空白の場合と数字以外のエラー追加
+			if(age === ""){
+				errorMessages.push("年齢の入力必須です。");
+			}else if(!age.match(/^[0-9０-９]+$/)) { // 全角数字も含めたチェック
+                errorMessages.push("年齢は数値でなければなりません。");
+            }
+
+            // 開始日が空白の場合のエラーメッセージ追加
+            if (!startDate) {
+                errorMessages.push("開始日を入力してください。");
+            }
+
+            // パスワード1が空白の場合のエラーメッセージ追加
             if (!password1) {
-                alert("パスワードを入力してください。");
-                return false;
+                errorMessages.push("パスワードを入力してください。");
             }
 
-            // パスワード2が空白の場合のアラート
+            // パスワード2が空白の場合のエラーメッセージ追加
             if (!password2) {
-                alert("パスワード確認にパスワードと同じ値を入力してください。");
-                return false;
+                errorMessages.push("パスワード確認にパスワードと同じ値を入力してください。");
             }
 
-            // パスワード1とパスワード2の一致確認
-            if (password1 !== password2) {
-                alert("パスワードとパスワード確認が一致しません。");
-                return false;
+            // パスワード1とパスワード2が一致しない場合のエラーメッセージ追加
+            if (password1 && password2 && password1 !== password2) {
+                errorMessages.push("パスワードとパスワード確認が一致しません。");
+            }
+
+            // エラーメッセージがある場合はまとめて表示
+            if (errorMessages.length > 0) {
+                alert(errorMessages.join("\n")); // メッセージを改行で区切って表示
+                return false; // フォーム送信を中止
             }
 
             return true; // 問題がない場合は送信
@@ -104,6 +129,17 @@
                         case 5:
                             errorMessages.push("パスワードには少なくとも1つの記号を含めてください。");
                             break;
+
+                        // case 6:
+                        //     errorMessages.push("名前を入力してください。");
+                        //     break;
+                        // case 7:
+                        //     errorMessages.push("年齢を入力してください。");
+                        //     break;
+                        // case 8:
+                        //     errorMessages.push("開始日を入力してください。");
+                        //     break;
+
                         default:
                             console.warn("未知のエラーコード: " + code); // 予期しないコードの警告
                             break;

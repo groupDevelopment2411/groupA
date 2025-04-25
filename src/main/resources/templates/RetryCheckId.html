@@ -25,17 +25,22 @@
 
 </head>
 <body>
-	<h1>社員情報更新対象者（ID入力）</h1>
+
+	<!-- <h1>社員情報更新対象者（ID入力）</h1> -->
+
+    <!-- ヘッダー -->
+    <div th:insert="~{Registration_Update_header_footer/Header}"></div>
+
 
     <form id="employeeForm" method="post" action="/checkUserId">
-        <label for="employeeId">ID:</label>
-        <input type="text" id="employeeId" name="userid" required>
+        <label for="employeeId">ID<span style="color: red;">＊</label>
+        <input type="text" id="employeeId" name="userid">
         <button type="submit">社員情報更新画面へ</button>
     </form>
 
-    <div>
-        <p id="error-message" th:text="${response}"></p>
-    </div>
+    <!-- フッター -->
+    <div th:insert="~{Registration_Update_header_footer/Footer}"></div>
+
 
 </body>
 </html>

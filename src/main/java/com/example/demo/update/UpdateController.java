@@ -57,6 +57,9 @@ public class UpdateController {
 	    if (userId == null || userId.isEmpty()) {
 	        m.addAttribute("response", "1");
 	        System.out.println("Response: " + m.getAttribute("response"));
+
+	        m.addAttribute("pageTitle", "社員情報更新対象者（ID入力）");
+	        
 	        return "RetryCheckId"; // 再入力画面へ
 	    }
 
@@ -67,6 +70,9 @@ public class UpdateController {
 	    } catch (NumberFormatException e) {
 	        m.addAttribute("response", "2");
 	        System.out.println("Response: " + m.getAttribute("response"));
+	        
+	        m.addAttribute("pageTitle", "社員情報更新対象者（ID入力）");
+	        
 	        return "RetryCheckId"; // 再入力画面へ
 	    }
 
@@ -75,6 +81,9 @@ public class UpdateController {
 	    if (user.size() == 0) {
 	        m.addAttribute("response", "3");
 	        System.out.println("Response: " + m.getAttribute("response"));
+	        
+	        m.addAttribute("pageTitle", "社員情報更新対象者（ID入力）");
+	        
 	        return "RetryCheckId"; // 再入力画面へ
 	    }
 
@@ -103,6 +112,9 @@ public class UpdateController {
 	    if (userId == null || userId.isEmpty()) {
 	        m.addAttribute("response", "1");
 	        System.out.println("Response: " + m.getAttribute("response"));
+	        
+	        m.addAttribute("pageTitle", "社員情報更新対象者（ID入力）");
+	        
 	        return "RetryCheckId";
 	    }
 
@@ -113,6 +125,9 @@ public class UpdateController {
 	    } catch (NumberFormatException e) {
 	        m.addAttribute("response", "2");
 	        System.out.println("Response: " + m.getAttribute("response"));
+	        
+	        m.addAttribute("pageTitle", "社員情報更新対象者（ID入力）");
+	        
 	        return "RetryCheckId";
 	    }
 
@@ -121,6 +136,9 @@ public class UpdateController {
 	    if (user.size() == 0) {
 	        m.addAttribute("response", "3");
 	        System.out.println("Response: " + m.getAttribute("response"));
+
+	        m.addAttribute("pageTitle", "社員情報更新対象者（ID入力）");
+	        
 	        return "RetryCheckId";
 	    }
 
@@ -205,9 +223,20 @@ public class UpdateController {
 	        if (!password1.matches(".*\\d.*")) {
 	            errorMessages += errorMessages.isEmpty() ? "4" : ",4";
 	        }
-	        if (!password1.matches(".*[@#$%^&+=!].*")) {
-	            errorMessages += errorMessages.isEmpty() ? "5" : ",5";
-	        }
+	        
+//	        if (name == null || name.isEmpty()) {
+//	        	errorMessages += errorMessages.isEmpty() ? "6" : ",6";
+//	        }
+//	        
+//	        if (age == null) {
+//	        	errorMessages += errorMessages.isEmpty() ? "7" : ",7";
+//	        }
+//	        
+//	        if (startDate == null || startDate.isEmpty()) {
+//	        	
+//	        	errorMessages += errorMessages.isEmpty() ? "8" : ",8";
+//	        }
+	        
 	    }
 	    
 	    
